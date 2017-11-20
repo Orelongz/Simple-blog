@@ -1,0 +1,24 @@
+.row .search {
+	width: 40px;
+}
+
+.outter.card {
+	width: 60%;
+	margin: 30px auto;
+	padding: 10px;
+}
+
+.new.card {
+	width: 400px;
+	margin: 30px auto;
+	padding: 10px;
+}
+
+textarea {
+	width: 100%;
+}
+
+.imglittle {
+	width: 100%;
+	height: 10em;
+}

@@ -1,0 +1,22 @@
+<% include partials/header %>
+
+<h1 class="text-center">Sign In</h1>
+<div class="card new">
+	<form action="/signin" method="POST">
+		<div class="form-group">
+	    	<label>Username</label>
+	    	<input type="text" class="form-control" name="username" placeholder="Enter your username">
+	    	<label>Password</label>
+	    	<input type="password" class="form-control" name="password" placeholder="password">
+		</div>
+		<div class="row mr-auto">
+			<div class="ml-auto">
+				<input type="submit" class="btn btn-sm btn-primary" value="Sign In">
+			</div>
+		</div>
+	</form>
+	<p>Don't have an account? <a href="/signup">Sign Up</a></p>
+</div>
+
+
+<% include partials/footer %>

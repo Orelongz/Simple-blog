@@ -1,0 +1,26 @@
+<% include partials/header %>
+
+
+<h1 class="text-center">Write a new blog post</h1>
+<div class="card new">
+	<form action="/blog" method="POST">
+		<div class="form-group">
+	    	<label>Title</label>
+	    	<input type="text" class="form-control" name="blog[title]" placeholder="Title of blog" required>
+	    	<label>Image</label>
+	    	<input type="text" class="form-control" name="blog[image]" placeholder="image url">
+	    	<label>Story</label>
+	    	<textarea class="form-control" name="blog[story]" placeholder="Blog content" required></Textarea>
+		</div>
+		<div class="row mr-auto">
+			<div class="ml-auto">
+				<input type="submit" class="btn btn-sm btn-primary">
+			</div>
+		</div>
+	</form>
+</div>
+
+
+
+
+<% include partials/footer %>

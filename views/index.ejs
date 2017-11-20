@@ -1,0 +1,54 @@
+<% include partials/header %>
+
+<div class="container">
+	<div class="row mr-auto">
+		<div class="searcn ml-auto" action="" method="GET">
+			<form class="input-group">
+				<input type="text" class="form-control" placeholder="Search" name="search">
+				<button class="input-group-addon btn btn-default" id="basic-addon1">Search</button>
+			</form>
+		</div>
+	</div>
+</div>
+
+<div class="container-fluid">
+	<h1 class="text-center">Welcome to myBlog</h1>
+	<div class="card outter">
+
+		<!--logic comes here -->
+
+		<% blogs.forEach(function(blog) { %>
+		
+		<h3><%= blog.title %></h3>
+		<div class="row">
+
+			<% if (blog.image === undefined || blog.image === "") { %>
+
+				<div class="col-md-12">
+					<p class="lead"><%= blog.story.substring(0, 50) %>...</p>
+					<a href="/blog/<%= blog._id %>" class="btn btn-sm btn-primary">View</a>
+				</div>
+
+			<% } else { %>
+
+			<div class="col-md-4">
+				<div class="img-thumbnail" >
+					<a href="/blog/<%= blog._id %>" ><img src="<%= blog.image %>" class="imglittle"></a>
+				</div>
+			</div>
+			<div class="col-md-8">
+				<p class="lead"><%= blog.story.substring(0, 50) %>...</p>
+				<a href="/blog/<%= blog._id %>" class="btn btn-sm btn-primary">View</a>
+			</div>
+
+			<% } %>
+
+		</div>
+		<hr>
+
+		<% }); %>
+
+	</div>
+</div>
+
+<% include partials/footer %>
