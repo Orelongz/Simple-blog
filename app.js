@@ -19,7 +19,8 @@ var commentRoute		= require("./routes/comment"),
 
 
 
-mongoose.connect("mongodb://localhost/myblog");
+// mongoose.connect("mongodb://localhost/myblog");
+mongoose.connect("mongodb://orelongz:orelongz@ds113906.mlab.com:13906/myblog");
 
 // mongoose.connect(process.env.DATABASEURL);
 
