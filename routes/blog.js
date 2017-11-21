@@ -61,7 +61,7 @@ router.post("/", middlewareObj.isLoggedIn, function(req, res) {
 		if (err){
 			console.log(err);
 		} else {
-			res.redirect("/blog");
+			res.redirect("/blog/" + blog._id);
 		}
 	});		
 });

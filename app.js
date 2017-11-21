@@ -18,13 +18,8 @@ var commentRoute		= require("./routes/comment"),
 	indexRoute			= require("./routes/index");
 
 
+mongoose.connect(process.env.DATABASEURL);
 
-// mongoose.connect("mongodb://localhost/myblog");
-mongoose.connect("mongodb://orelongz:orelongz@ds113906.mlab.com:13906/myblog");
-
-// mongoose.connect(process.env.DATABASEURL);
-
-// console.log(process.env.DATABASEURL);
 
 app.set("view engine", "ejs");
 app.use(express.static("public"));
