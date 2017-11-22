@@ -1,37 +1,31 @@
 <% include partials/header %>
 
 
-<div class="container space-top">
+<div class="container my-4">
 	<h1 class="text-center">Sign Up</h1>
 	<div class="row">
 		<div class="col-sm-1 col-md-3 col-lg-4"></div>
 		<div class="col-sm-10 col-md-6 col-lg-4">
 			<div class="card">
 				<div class="container">
-					<form action="/signup" method="POST">
-						<div class="form-group">
+					<form class="form-group my-3" action="/signup" method="POST">
 
-					    	<label>Name</label>
+				    	<label>Name</label>
 
-					    	<input type="text" class="form-control" name="firstname" placeholder="firstname">
-					    	<br>
-					    	<input type="text" class="form-control" name="surname" placeholder="surname">
+				    	<input type="text" class="form-control" name="firstname" placeholder="firstname">
+				    	<br>
+				    	<input type="text" class="form-control" name="surname" placeholder="surname">
 
-					    	<label>Username</label>
-					    	<input type="text" class="form-control" name="username" placeholder="username">
+				    	<label>Username</label>
+				    	<input type="text" class="form-control" name="username" placeholder="username">
 
-					    	<label>Password</label>
-					    	<input type="password" class="form-control" name="password" placeholder="password">
+				    	<label>Password</label>
+				    	<input type="password" class="form-control" name="password" placeholder="password">
 
-					    	<label>Re-type Password</label>
-					    	<input type="password" class="form-control" name="rePassword" placeholder="Re-type password">
-						</div>
+				    	<label>Re-type Password</label>
+				    	<input type="password" class="form-control" name="rePassword" placeholder="Re-type password">
 
-						<div class="row mr-auto">
-							<div class="ml-auto">
-								<input type="submit" class="btn btn-sm btn-primary" value="Sign Up">
-							</div>
-						</div>
+						<input type="submit" class="btn btn-sm btn-primary d-block mt-3 ml-auto" value="Sign Up">
 					</form>
 					<p>Already have an account? <a href="/signin">Sign In</a></p>
 				</div>

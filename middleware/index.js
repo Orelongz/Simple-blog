@@ -60,5 +60,8 @@ middlewareObj.validation = function(req, res, next) {
 	}
 }
 
+middlewareObj.escapeRegex = function(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
 
 module.exports = middlewareObj;

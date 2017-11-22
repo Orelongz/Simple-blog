@@ -14,18 +14,28 @@ var mongoose		= require("mongoose"),
 
 // GET ALL BLOG POSTS
 router.get("/", function(req, res) {
-	Blog.find({}, function(err, blogs){
-		if (err) {
-			console.log (err);	
-		} else {
-			res.render("index", {blogs: blogs});
-		}
-	});
-});
-
-router.get("/search", function(req, res) {
-	var search = req.query.q;
-	res.send("You searched for " + search);
+	var notFound = null;
+	if(req.query.q) {
+		var regex = new RegExp(middlewareObj.escapeRegex(req.query.q), 'gi');
+		Blog.find({"title": regex}, function(err, blogs){
+			if (err) {
+				req.flash("error", err.message);
+				res.redirect("back");	
+			} else  if (blogs.length == 0) {
+				notFound = (req.query.q);
+			}
+			res.render("index", {blogs: blogs, notFound: notFound});
+		});
+	} else {
+		Blog.find({}, function(err, blogs){
+			if (err) {
+				req.flash("error", err.message);
+				res.redirect("back");	
+			}else {
+				res.render("index", {blogs: blogs, notFound: notFound});
+			}
+		});
+	}
 });
 
 // GETS PAGE TO CREATE NEW BLOG POST
@@ -64,7 +74,8 @@ router.post("/", middlewareObj.isLoggedIn, function(req, res) {
 	};
 	Blog.create(req.body.blog, function(err, blog) {
 		if (err){
-			console.log(err);
+			req.flash("error", err.message);
+			res.redirect("back");	
 		} else {
 			res.redirect("/blog/" + blog._id);
 		}
@@ -96,9 +107,6 @@ router.delete("/:id", middlewareObj.checkBlogOwnership, function(req, res) {
 		res.redirect("/blog");
 	});
 });
-
-
-
 
 
 module.exports = router;

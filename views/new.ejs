@@ -1,23 +1,27 @@
 <% include partials/header %>
 
 
-<h1 class="text-center">Write a new blog post</h1>
-<div class="card new">
-	<form action="/blog" method="POST">
-		<div class="form-group">
-	    	<label>Title</label>
-	    	<input type="text" class="form-control" name="blog[title]" placeholder="Title of blog" required>
-	    	<label>Image</label>
-	    	<input type="text" class="form-control" name="blog[image]" placeholder="image url">
-	    	<label>Story</label>
-	    	<textarea class="form-control" name="blog[story]" placeholder="Blog content" required></Textarea>
-		</div>
-		<div class="row mr-auto">
-			<div class="ml-auto">
-				<input type="submit" class="btn btn-sm btn-primary">
+<div class="container my-5">
+	<h1 class="text-center">Write a new blog post</h1>
+	<div class="row">
+		<div class="col-sm-1 col-md-2 col-lg-2"></div>
+		<div class="col-sm-10 col-md-8 col-lg-8">
+			<div class="card">
+				<div class="container">
+					<form class="form-group" action="/blog" method="POST">
+				    	<label>Title</label>
+				    	<input type="text" class="form-control" name="blog[title]" placeholder="Title of blog" required>
+				    	<label>Image</label>
+				    	<input type="text" class="form-control" name="blog[image]" placeholder="image url">
+				    	<label>Story</label>
+				    	<textarea class="form-control" name="blog[story]" placeholder="Blog content" rows="10" required></Textarea>
+						<input type="submit" class="btn btn-primary d-block my-3 ml-auto">
+					</form>
+				</div>
 			</div>
 		</div>
-	</form>
+		<div class="col-sm-1 col-md-2 col-lg-2"></div>
+	</div>
 </div>
 
 
