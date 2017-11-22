@@ -19,6 +19,7 @@ var commentRoute		= require("./routes/comment"),
 
 
 mongoose.connect(process.env.DATABASEURL);
+console.log(process.env.DATABASEURL);
 
 
 app.set("view engine", "ejs");
@@ -53,9 +54,6 @@ passport.deserializeUser(User.deserializeUser());
 app.use("/", indexRoute);
 app.use("/blog", blogRoute);
 app.use("/blog/:id/comment", commentRoute);
-
-
-
 
 
 app.get("/", function(req, res) {

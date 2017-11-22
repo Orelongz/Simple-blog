@@ -23,6 +23,11 @@ router.get("/", function(req, res) {
 	});
 });
 
+router.get("/search", function(req, res) {
+	var search = req.query.q;
+	res.send("You searched for " + search);
+});
+
 // GETS PAGE TO CREATE NEW BLOG POST
 router.get("/new", middlewareObj.isLoggedIn, function(req, res) {
 	res.render("new");
