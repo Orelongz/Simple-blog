@@ -1,47 +1,66 @@
 <% include partials/header %>
 
-<div class="card outter">
-	<% if (blog.image != "") { %>
-		<img src="<%= blog.image %>" class="img-thumbnail" alt="">
-	<% } %>
-	<div>
-		<h3><%= blog.title %></h3>
-		<p class="lead"><%- blog.story %></p>
-		<p>Article by: <strong><%= blog.author.username %></strong></p>
-		<% if (currentUser && blog.author.id.equals(currentUser._id)) { %>
-			<a href="/blog/<%= blog._id %>/edit" class="btn btn-primary">Edit</a>
-			<form class="d-inline-block" action="/blog/<%= blog._id %>?_method=DELETE" method="POST">
-				<button class="btn btn-danger">Delete</button>
-			</form>
-		<% } %>
-	</div>
-</div>
-
-<div class="card outter ">
-	<div>
-	<% blog.comments.forEach(function(comment) { %>
-
-		<p><strong><%= comment.author.username %></strong> - <%= comment.comment %></p>
-
-		<% if (currentUser && comment.author.id.equals(currentUser._id)) { %>
-
-		<a href="/blog/<%= blog._id %>/comment/<%= comment._id %>/edit" class="btn btn-sm btn-primary">Edit</a>
-		<form class="d-inline-block" action="/blog/<%= blog._id %>/comment/<%= comment._id %>/delete?_method=DELETE" method="POST">
-			<button class="btn btn-sm btn-danger">Delete</button>
-		</form>
-
-		<% } %>
-
-		<hr >
-	<% }) %>
-	</div>
-	<form action="/blog/<%= blog._id %>/comment" method="POST">
-		<textarea placehoder="comment" placeholder="Comment" name="comment"></textarea>
-		<div class="row mr-auto">
-			<div class="ml-auto">
-				<button class="btn btn-primary">Comment</button>
+<div class="container space-top">
+	<div class="row">
+		<div class="col-sm-12 col-md-2 col-lg-2"></div>
+		<div class="col-sm-12 col-md-8 col-lg-8">
+			<div class="card">
+			<% if (blog.image != "") { %>
+				<img src="<%= blog.image %>" class="img-thumbnail" alt="">
+			<% } %>
+			<div class="container">
+				<h3><%= blog.title %></h3>
+				<p><%- blog.story %></p>
+				<p>Article by: <strong><%= blog.author.username %></strong></p>
+				<% if (currentUser && blog.author.id.equals(currentUser._id)) { %>
+					<a href="/blog/<%= blog._id %>/edit" class="btn btn-primary">Edit</a>
+					<form class="d-inline-block" action="/blog/<%= blog._id %>?_method=DELETE" method="POST">
+						<button class="btn btn-danger">Delete</button>
+					</form>
+				<% } %>
 			</div>
 		</div>
-	</form>
+		<div class="col-sm-12 col-md-2 col-lg-2"></div>
+		</div>
+	</div>
+
+	<br>
+
+	<div class="row">
+		<div class="col-sm-12 col-md-2 col-lg-2"></div>
+		<div class="col-sm-12 col-md-8 col-lg-8">
+			<div class="card">
+				<div class="container">
+					<% blog.comments.forEach(function(comment) { %>
+
+						<hr >
+
+						<p><strong><%= comment.author.username %></strong> - <%= comment.comment %></p>
+
+						<% if (currentUser && comment.author.id.equals(currentUser._id)) { %>
+
+						<a href="/blog/<%= blog._id %>/comment/<%= comment._id %>/edit" class="btn btn-sm btn-primary">Edit</a>
+						<form class="d-inline-block" action="/blog/<%= blog._id %>/comment/<%= comment._id %>/delete?_method=DELETE" method="POST">
+							<button class="btn btn-sm btn-danger">Delete</button>
+						</form>
+
+						<% } %>
+
+						<hr >
+					<% }) %>
+				
+					<form action="/blog/<%= blog._id %>/comment" method="POST">
+						<textarea placehoder="comment" placeholder="Comment" name="comment"></textarea>
+						<div class="row mr-auto">
+							<div class="ml-auto">
+								<button class="btn btn-primary">Comment</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		<div class="col-sm-12 col-md-2 col-lg-2"></div>
+	</div>
 </div>
+
 <% include partials/footer %>

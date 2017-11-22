@@ -1,17 +1,9 @@
-.row .search {
-	width: 40px;
+.space-top {
+	margin: 30px 0;
 }
 
-.outter.card {
-	width: 60%;
-	margin: 30px auto;
-	padding: 10px;
-}
-
-.new.card {
-	width: 400px;
-	margin: 30px auto;
-	padding: 10px;
+.btn {
+	margin-bottom: 10px;
 }
 
 textarea {
