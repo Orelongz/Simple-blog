@@ -21,7 +21,7 @@ var commentRoute		= require("./routes/comment"),
 mongoose.connect(process.env.DATABASEURL);
 console.log(process.env.DATABASEURL);
 
-
+// app.set('views', __dirname + '/views');
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
@@ -59,6 +59,11 @@ app.use("/blog/:id/comment", commentRoute);
 app.get("/", function(req, res) {
 	res.redirect("/blog");
 });
+
+
+app.get("*", function(req, res) {
+	res.render("error");
+})
 
 //===================
 // LISTENING ON PORT

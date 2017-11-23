@@ -40,10 +40,21 @@ router.post("/signup", middlewareObj.validation, function(req, res) {
 
 
 // SIGN IN A USER INTO THE WEB APP
-router.post("/signin", passport.authenticate("local", {
-	successRedirect: "/blog",
-	failureRedirect: "/signin"
-	}), function(req, res) {
+router.post("/signin", middlewareObj.signInValidation, function(req, res) {
+	passport.authenticate("local", function(err, user) {
+		if (err || !user) {
+			req.flash("info", "Don't have an account? Please do Sign Up");
+			return res.redirect("/signin");
+		}
+		req.login(user, function(err) {
+			if (err) {
+				req.flash("error", err.message);
+				return res.redirect("back");
+			}
+			req.flash("success", "Welcome back " + user.username);
+			res.redirect("/blog");
+		});
+	})(req, res);
 });
 
 

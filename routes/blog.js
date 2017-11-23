@@ -14,49 +14,47 @@ var mongoose		= require("mongoose"),
 
 // GET ALL BLOG POSTS
 router.get("/", function(req, res) {
-	var notFound = null;
-	if(req.query.q) {
-		var regex = new RegExp(middlewareObj.escapeRegex(req.query.q), 'gi');
+	var search = req.query.q;
+	if(search) {
+		var regex = new RegExp(middlewareObj.escapeRegex(search), 'gi');
 		Blog.find({"title": regex}, function(err, blogs){
 			if (err) {
-				req.flash("error", err.message);
-				res.redirect("back");	
-			} else  if (blogs.length == 0) {
-				notFound = (req.query.q);
-			}
-			res.render("index", {blogs: blogs, notFound: notFound});
+				req.flash("error", "Blogs not found");
+				return res.redirect("/blog");
+			} 
+			res.render("blogs/index", {blogs: blogs, search: search});
 		});
 	} else {
 		Blog.find({}, function(err, blogs){
-			if (err) {
-				req.flash("error", err.message);
-				res.redirect("back");	
-			}else {
-				res.render("index", {blogs: blogs, notFound: notFound});
-			}
+			res.render("blogs/index", {blogs: blogs, search: search});
 		});
 	}
 });
 
 // GETS PAGE TO CREATE NEW BLOG POST
 router.get("/new", middlewareObj.isLoggedIn, function(req, res) {
-	res.render("new");
+	res.render("blogs/new");
 });
 
 // GETS THE DETAILS OF INDIVIDUAL BLOGS
 router.get("/:id", function(req, res) {
 	Blog.findById(req.params.id).populate("comments").exec(function(err, blog) {
-		if (err) {
-			res.redirect("/blog");
+		if (err || !blog) {
+			req.flash("error", "Blog post not found");
+			return res.redirect("/blog");
 		}
-		res.render("show", {blog: blog});
+		res.render("blogs/show", {blog: blog});
 	});
 });
 
 // GETS THE PAGE TO EDIT A BLOG
 router.get("/:id/edit", middlewareObj.checkBlogOwnership, function(req, res) {
 	Blog.findById(req.params.id, function(err, blog) {
-		res.render("edit", {blog: blog});
+		if (err || !blog) {
+			req.flash("error", "Blog post not found");
+			return res.redirect("/blog/" + req.params.id);
+		}
+		res.render("blogs/edit", {blog: blog});
 	});
 });
 
@@ -73,12 +71,11 @@ router.post("/", middlewareObj.isLoggedIn, function(req, res) {
 		username: req.user.username
 	};
 	Blog.create(req.body.blog, function(err, blog) {
-		if (err){
+		if (err || !blog){
 			req.flash("error", err.message);
-			res.redirect("back");	
-		} else {
-			res.redirect("/blog/" + blog._id);
-		}
+			return res.redirect("back");	
+		} 
+		res.redirect("/blog/" + blog._id);
 	});		
 });
 
@@ -91,6 +88,10 @@ router.post("/", middlewareObj.isLoggedIn, function(req, res) {
 router.put("/:id", middlewareObj.checkBlogOwnership, function(req, res) {
 	req.body.blog.story = req.sanitize(req.body.blog.story);
 	Blog.findByIdAndUpdate(req.params.id, req.body.blog, function(err, blog) {
+		if (err || !blog) {
+			req.flash("error", "Blog post not found");
+			return res.redirect("/blog");
+		}
 		res.redirect("/blog/" + req.params.id);
 	});
 });
@@ -103,6 +104,10 @@ router.put("/:id", middlewareObj.checkBlogOwnership, function(req, res) {
 // DELETES AN EXISTING BLOG
 router.delete("/:id", middlewareObj.checkBlogOwnership, function(req, res) {
 	Blog.findByIdAndRemove(req.params.id, function(err) {
+		if (err || !blog) {
+			req.flash("error", "Blog post not found");
+			return res.redirect("/blog");
+		}
 		req.flash("success", "Blog deleted");
 		res.redirect("/blog");
 	});

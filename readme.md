@@ -19,7 +19,11 @@ However, only authenticated users are allowed to post a blog and add comments to
 
 Posted blog posts could be edited as well as deleted.
 
-=======OTHER FUNCTIONALITIES COMING SOON===
+Posted comments could also be edited as well as deleted only if a user is signed in and the user is the owner of the comment.
+
+Searching of available title of blog post is also working
+
+=======OTHER FUNCTIONALITIES COMING SOON======
 
 CONFIGURATION
 -------------

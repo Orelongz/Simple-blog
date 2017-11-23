@@ -6,3 +6,12 @@ textarea {
 	width: 100%;
 	height: 10em;
 }
+
+#error {
+	width: 30%;
+	margin: 0 auto;
+}
+
+.verticalcenter {
+	margin-top: 13%;
+}
